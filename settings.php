@@ -39,3 +39,7 @@ $settings->add(new admin_setting_configtext(
     30,
     PARAM_INT
 ));
+
+$url = new moodle_url('/files/converter/gotenberg/testgotenberg.php');
+$link = html_writer::link($url, get_string('test_gotenberg', 'fileconverter_gotenberg'));
+$settings->add(new admin_setting_heading('fileconverter_gotenberg/test', '', $link));

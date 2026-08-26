@@ -26,6 +26,11 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Gotenberg';
 $string['privacy:metadata'] = 'The Gotenberg document converter plugin does not store any personal data itself, though the content of the document being converted is transiently sent to the configured Gotenberg server for the duration of the conversion.';
+$string['test_gotenberg'] = 'Test Gotenberg connection';
+$string['test_gotenbergdownload'] = 'Download the converted pdf test file.';
+$string['test_gotenbergempty'] = 'The Gotenberg URL is not set. Please review your settings.';
+$string['test_gotenbergok'] = 'The connection to Gotenberg appears to be working.';
+$string['test_gotenbergunreachable'] = 'The Gotenberg server could not be reached. Please check the URL and that the server is running.';
 $string['timeout'] = 'Request timeout';
 $string['timeout_desc'] = 'The number of seconds to wait for Gotenberg to respond before giving up on a conversion.';
 $string['url'] = 'Gotenberg URL';
