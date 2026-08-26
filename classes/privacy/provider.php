@@ -15,18 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for plugin 'fileconverter_gotenberg'.
+ * Privacy provider implementation for fileconverter_gotenberg.
  *
  * @package    fileconverter_gotenberg
  * @copyright  2026 Marius Preuss
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace fileconverter_gotenberg\privacy;
+
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Gotenberg';
-$string['privacy:metadata'] = 'The Gotenberg document converter plugin does not store any personal data itself, though the content of the document being converted is transiently sent to the configured Gotenberg server for the duration of the conversion.';
-$string['timeout'] = 'Request timeout';
-$string['timeout_desc'] = 'The number of seconds to wait for Gotenberg to respond before giving up on a conversion.';
-$string['url'] = 'Gotenberg URL';
-$string['url_desc'] = 'The base URL of your Gotenberg instance, for example http://gotenberg:3000. Leave empty to disable this converter.';
+/**
+ * Privacy provider implementation for fileconverter_gotenberg.
+ *
+ * @copyright  2026 Marius Preuss
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason(): string {
+        return 'privacy:metadata';
+    }
+}
