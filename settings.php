@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for plugin 'fileconverter_gotenberg'.
+ * Settings for fileconverter_gotenberg.
  *
  * @package    fileconverter_gotenberg
  * @copyright  2026 Marius Preuss
@@ -24,8 +24,18 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Gotenberg';
-$string['timeout'] = 'Request timeout';
-$string['timeout_desc'] = 'The number of seconds to wait for Gotenberg to respond before giving up on a conversion.';
-$string['url'] = 'Gotenberg URL';
-$string['url_desc'] = 'The base URL of your Gotenberg instance, for example http://gotenberg:3000. Leave empty to disable this converter.';
+$settings->add(new admin_setting_configtext(
+    'fileconverter_gotenberg/url',
+    new lang_string('url', 'fileconverter_gotenberg'),
+    new lang_string('url_desc', 'fileconverter_gotenberg'),
+    '',
+    PARAM_URL
+));
+
+$settings->add(new admin_setting_configtext(
+    'fileconverter_gotenberg/timeout',
+    new lang_string('timeout', 'fileconverter_gotenberg'),
+    new lang_string('timeout_desc', 'fileconverter_gotenberg'),
+    30,
+    PARAM_INT
+));
