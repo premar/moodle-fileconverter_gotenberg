@@ -103,7 +103,7 @@ class converter implements \core_files\converter_interface {
 
         // Copy the file to the tmp dir, keeping its extension so Gotenberg can detect the source format.
         $uniqdir = make_unique_writable_directory(make_temp_directory('fileconverter_gotenberg/conversions'));
-        \core\shutdown_manager::register_function('remove_dir', [$uniqdir]);
+        \core_shutdown_manager::register_function('remove_dir', [$uniqdir]);
         $localfilename = $file->get_id() . '.' . $fromformat;
         $localfilepath = $uniqdir . '/' . $localfilename;
 
