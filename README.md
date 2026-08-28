@@ -36,6 +36,13 @@ services:
       - "3000:3000"
 ```
 
+If Gotenberg runs on a private/internal network (e.g. a Docker container next
+to Moodle), Moodle's own HTTP security settings will block the request by
+default. Under *Site administration > Security > HTTP security*, add
+Gotenberg's port (e.g. `3000`) to **Allowed ports**, and make sure its host
+or IP range isn't covered by **Blocked hosts and IP addresses** (which blocks
+private ranges like `172.16.0.0/12` out of the box).
+
 ## Installation
 
 1. Copy (or clone) this repository into `<moodle>/files/converter/gotenberg`.
