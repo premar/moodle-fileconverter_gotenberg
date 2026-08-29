@@ -22,6 +22,7 @@ namespace fileconverter_gotenberg;
  * @package    fileconverter_gotenberg
  * @copyright  2026 Marius Preuss
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \fileconverter_gotenberg\converter
  */
 final class converter_test extends \advanced_testcase {
     /**
