@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2026082600;
+$plugin->version   = 2026082900;
 $plugin->requires  = 2024100700; // Moodle 4.5.0.
 $plugin->component = 'fileconverter_gotenberg';
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.1.0';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->release   = '1.0.0';
