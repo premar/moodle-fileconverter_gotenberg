@@ -21,6 +21,7 @@
  * @copyright 2026 Marius Preuss
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/filelib.php');
 
@@ -35,8 +36,10 @@ require_capability('moodle/site:config', context_system::instance());
 $strheading = get_string('test_gotenberg', 'fileconverter_gotenberg');
 $PAGE->navbar->add(get_string('administrationsite'));
 $PAGE->navbar->add(get_string('plugins', 'admin'));
-$PAGE->navbar->add(get_string('type_fileconverter_plural', 'plugin'),
-        new moodle_url('/admin/settings.php', array('section' => 'fileconvertergotenberg')));
+$PAGE->navbar->add(
+    get_string('type_fileconverter_plural', 'plugin'),
+    new moodle_url('/admin/settings.php', ['section' => 'fileconvertergotenberg'])
+);
 $PAGE->navbar->add($strheading);
 $PAGE->set_heading($strheading);
 $PAGE->set_title($strheading);
@@ -54,7 +57,7 @@ $result = \fileconverter_gotenberg\converter::test_connection();
 switch ($result->status) {
     case \fileconverter_gotenberg\converter::STATUS_OK:
         $msg = $OUTPUT->notification(get_string('test_gotenbergok', 'fileconverter_gotenberg'), 'success');
-        $pdflink = new moodle_url($PAGE->url, array('sendpdf' => 1, 'sesskey' => sesskey()));
+        $pdflink = new moodle_url($PAGE->url, ['sendpdf' => 1, 'sesskey' => sesskey()]);
         $msg .= html_writer::link($pdflink, get_string('test_gotenbergdownload', 'fileconverter_gotenberg'));
         $msg .= html_writer::empty_tag('br');
         break;
@@ -63,7 +66,7 @@ switch ($result->status) {
         $msg = $OUTPUT->notification(get_string("test_gotenberg{$result->status}", 'fileconverter_gotenberg'), 'warning');
         break;
 }
-$returl = new moodle_url('/admin/settings.php', array('section' => 'fileconvertergotenberg'));
+$returl = new moodle_url('/admin/settings.php', ['section' => 'fileconvertergotenberg']);
 $msg .= $OUTPUT->continue_button($returl);
 
 echo $OUTPUT->header();

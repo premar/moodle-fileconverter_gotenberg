@@ -23,8 +23,6 @@
  */
 namespace fileconverter_gotenberg;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class for converting files between different formats using Gotenberg.
  *
@@ -33,7 +31,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class converter implements \core_files\converter_interface {
-
     /** Connection to Gotenberg is working. */
     const STATUS_OK = 'ok';
 
@@ -79,9 +76,10 @@ class converter implements \core_files\converter_interface {
 
         if (!self::are_requirements_met()) {
             $conversion->set('status', \core_files\conversion::STATUS_FAILED);
-            error_log(
+            debugging(
                 'Gotenberg conversion failed to verify the configuration meets the minimum requirements. ' .
-                'Please check the Gotenberg URL setting and that the server is reachable.'
+                'Please check the Gotenberg URL setting and that the server is reachable.',
+                DEBUG_DEVELOPER
             );
             return $this;
         }
@@ -94,9 +92,10 @@ class converter implements \core_files\converter_interface {
 
         if (!self::supports($fromformat, $format)) {
             $conversion->set('status', \core_files\conversion::STATUS_FAILED);
-            error_log(
+            debugging(
                 "Gotenberg conversion for '" . $filepath . "' from '" . $fromformat . "' to '" . $format . "' " .
-                "is not supported."
+                "is not supported.",
+                DEBUG_DEVELOPER
             );
             return $this;
         }
@@ -113,9 +112,10 @@ class converter implements \core_files\converter_interface {
                 throw new \file_exception('storedfileproblem', 'Could not copy file contents to temp file.');
             }
         } catch (\file_exception $fe) {
-            error_log(
+            debugging(
                 "Gotenberg conversion for '" . $filepath . "' encountered a disk permission error when copying " .
-                "the submitted file contents to the temp file: '" . $localfilepath . "'."
+                "the submitted file contents to the temp file: '" . $localfilepath . "'.",
+                DEBUG_DEVELOPER
             );
             throw $fe;
         }
@@ -135,10 +135,11 @@ class converter implements \core_files\converter_interface {
 
         if ($curl->get_errno() || $httpcode != 200 || empty($response)) {
             $conversion->set('status', \core_files\conversion::STATUS_FAILED);
-            error_log(
+            debugging(
                 "Gotenberg conversion for '" . $filepath . "' from '" . $fromformat . "' to '" . $format . "' " .
                 "was unsuccessful; received HTTP status (" . $httpcode . "). Please check the Gotenberg URL " .
-                "setting and that the server is reachable."
+                "setting and that the server is reachable.",
+                DEBUG_DEVELOPER
             );
             return $this;
         }
@@ -184,8 +185,14 @@ class converter implements \core_files\converter_interface {
 
         // Get the fixture doc file content and generate a stored_file object.
         $fs = get_file_storage();
-        $testdocx = $fs->get_file($filerecord['contextid'], $filerecord['component'], $filerecord['filearea'],
-                $filerecord['itemid'], $filerecord['filepath'], $filerecord['filename']);
+        $testdocx = $fs->get_file(
+            $filerecord['contextid'],
+            $filerecord['component'],
+            $filerecord['filearea'],
+            $filerecord['itemid'],
+            $filerecord['filepath'],
+            $filerecord['filename']
+        );
 
         if (!$testdocx) {
             $fixturefile = dirname(__DIR__) . '/tests/fixtures/source.docx';

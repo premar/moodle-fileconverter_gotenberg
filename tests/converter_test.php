@@ -24,7 +24,6 @@ namespace fileconverter_gotenberg;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class converter_test extends \advanced_testcase {
-
     /**
      * Helper to skip tests which _require_ a reachable Gotenberg server.
      */
